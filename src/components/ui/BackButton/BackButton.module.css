@@ -1,0 +1,17 @@
+.button {
+    background-color: #1085f9;
+    border: 1px solid #1085f9;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    border-radius: 10px;
+    transition: .4s all;
+    font-family: "Montserrat", sans-serif;
+}
+
+.button:hover {
+    background-color: white;
+    color: #1085f9;
+}

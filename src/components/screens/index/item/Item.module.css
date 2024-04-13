@@ -1,0 +1,25 @@
+.item {
+    margin-bottom: 10px;
+}
+
+.item > th {
+    margin-right: 4px;
+    border-bottom: 2px solid #f2f2f2;
+    font-weight: 400;
+    padding: 10px 0;
+}
+
+.item__changing > th {
+    margin-right: 4px;
+    border-bottom: 2px solid #f2f2f2;
+    font-weight: 400;
+    padding: 10px 0;
+}
+
+.change_button {
+    transition: .4s all;
+}
+
+.change_button:hover {
+    color: #78d178;
+}

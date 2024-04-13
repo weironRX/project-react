@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    margin-top: 20px;
+    width: 600px;
+}
+
+.container__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-right: 10px;
+}
+
+.container__item > *:not(:first-child) {
+    margin-top: 20px;
+}
+
+.container__inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    border: 2px solid #f2f2f2;
+    margin-bottom: 4px;
+}
+
+.save_button {
+    background-color: #fef7e7;
+    height: 50px;
+    margin: auto 0 auto 20px;
+    padding: 10px;
+    color: #f5c43c;
+}

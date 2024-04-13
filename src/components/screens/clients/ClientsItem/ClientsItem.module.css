@@ -1,0 +1,22 @@
+.item {
+    border-bottom: 1px solid #f1f4f1;
+    margin: 10px;
+    font-family: "Montserrat", sans-serif;
+}
+
+.row {
+    padding: 10px 0;
+}
+
+.button {
+    margin: 10px 0 0 0;
+    transition: .4s all;
+}
+
+.button:hover {
+    color: #f5c43c;
+}
+
+.input {
+    font-weight: 400;
+}

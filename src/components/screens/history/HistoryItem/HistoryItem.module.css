@@ -1,0 +1,10 @@
+.item {
+    border-bottom: 1px solid #f1f4f1;
+    margin: 10px;
+    font-family: "Montserrat", sans-serif;
+}
+
+.row {
+    padding: 10px 0;
+    font-weight: 400;
+}
