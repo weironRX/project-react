@@ -1,8 +1,8 @@
 {
   "/_app": "pages/_app.js",
-  "/auth": "pages/auth.html",
-  "/_error": "pages/_error.js",
   "/clients": "pages/clients.html",
+  "/_error": "pages/_error.js",
+  "/auth": "pages/auth.html",
   "/history": "pages/history.html",
   "/": "pages/index.html",
   "/services": "pages/services.html",
