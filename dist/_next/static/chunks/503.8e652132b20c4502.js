@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[503],{9503:function(e,t,u){u.r(t);var a=u(5893),n=u(6789),r=u(1163);t.default=e=>{let{Component:{isOnlyUser:t},children:u}=e,{user:l}=(0,n.a)(),h=(0,r.useRouter)();return l&&t?(0,a.jsx)(a.Fragment,{children:u}):("/auth"!==h.pathname&&h.replace("/auth"),null)}}}]);

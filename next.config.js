@@ -5,9 +5,8 @@ const nextConfig = {
         SERVER_URL: process.env.SERVER_URL,
         APP_URL: process.env.APP_URL
     },
-    images: {
-        domains: ["loremflickr.com", "aptronixindia.com", "w7.pngwing.com", "upload.wikimedia.org"]
-    }
+    output: "export",
+    distDir: "dist"
 }
 
 module.exports = nextConfig

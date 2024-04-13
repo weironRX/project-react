@@ -10,13 +10,12 @@
 .loader {
     width: 50px;
     height: 50px;
-    border: 3px solid hsl(36, 100%, 50%);
+    border: 3px solid white;
     animation-name: loader;
     animation-duration: 3s;
     animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
     animation-iteration-count: infinite;
     border-radius: 8px;
-    border-top: none;
 }
 
 @keyframes loader {
