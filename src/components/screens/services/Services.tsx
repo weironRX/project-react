@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import cl from "./Services.module.css";
 import { ServiceService } from "@/services/service.service";
 import { useQuery } from "@tanstack/react-query";
@@ -15,6 +15,23 @@ const Services: FC = () => {
             return response
         }
     );
+
+    useEffect(() => {
+        const pr = localStorage.getItem("change")
+
+        if (!pr) return;
+
+        const id = setInterval(() => {
+            const seconds = localStorage.getItem("change")
+
+            if (!seconds) return
+
+            localStorage.removeItem("change")
+            localStorage.setItem("change", (JSON.parse(seconds) + 1))
+        }, 1000)
+
+        return () => clearInterval(id)
+    })
 
     return (
         <div className={cl.container}>

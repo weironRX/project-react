@@ -1,7 +1,7 @@
 import { ClientService } from "@/services/client.service";
 import { IClient } from "@/types/client.interface";
 import { useQuery } from "@tanstack/react-query";
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import ClientsItem from "./ClientsItem/ClientsItem";
 import cl from "./Clients.module.css"
 import BackButton from "@/ui/BackButton/BackButton";
@@ -14,6 +14,23 @@ const Clients: FC = () => {
     const {isLoading, isError, data} = useQuery(
         ["clients", aliasSearch, contactsSearch], async () => await ClientService.getAllBySearch(aliasSearch, contactsSearch)
     )
+
+    useEffect(() => {
+        const pr = localStorage.getItem("change")
+
+        if (!pr) return;
+
+        const id = setInterval(() => {
+            const seconds = localStorage.getItem("change")
+
+            if (!seconds) return
+
+            localStorage.removeItem("change")
+            localStorage.setItem("change", (JSON.parse(seconds) + 1))
+        }, 1000)
+
+        return () => clearInterval(id)
+    })
 
     return (
         <div className={cl.container}>
