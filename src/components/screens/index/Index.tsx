@@ -41,18 +41,16 @@ const Index: FC = () => {
 
             const minutes = (new Date()).getMinutes()
 
-            setUntilSeconds(3600 - minutes * 60)
+            setUntilSeconds(prevSeconds => 3600 - minutes * 60)
         }
 
-        const secondsInterval = setInterval(() => {
+        const secondsInterval = window.setInterval(() => {
             updateSeconds()
-        }, 1000 * 60)
+        }, 1000)
 
-        return () => {
-            clearInterval(secondsInterval)
-        }
+        return () => clearInterval(secondsInterval)
         
-    }, [sessions, date, (new Date()).getMinutes()])
+    }, [date, sessions])
     
     return ( 
         <div className={cl.wrapper}>
