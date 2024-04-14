@@ -18,30 +18,38 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
     const [intervalId, setIntervalId] = useState<any>()
     const [montly, setMonthly] = useState<number>(0)
 
-    const startChange = useCallback( () => {
+    const startChange = (seconds: number) => {
         setIsChange(true);
 
+        setSeconds(seconds)
+
         const id = setInterval(() => {
-            setSeconds(seconds => seconds + 1);
+            setSeconds(prevSeconds => prevSeconds + 1);
         }, 1000);
 
         setIntervalId(id)
-    }, [])
+    }
+
+    const create = async (seconds: number) => {
+        await ChangesService.create({date, length: String(seconds)});
+    }
 
     const endChange = async () => {
+        setMonthly(montly => montly + seconds)
+
         setIsChange(false);
 
         setSeconds(0)
-        await ChangesService.create({date, length: String(seconds)});
+        create(seconds)
 
-
-        setMonthly(montly => montly + seconds)
+        localStorage.removeItem("change")
 
         clearInterval(intervalId)
     }
 
+
     const { isLoading, error, data } = useQuery(
-        ['change-all', date, isChange], async () => ChangesService.getAll()
+        ['change-all', date, isChange, seconds], async () => ChangesService.getAll()
     );
 
     useEffect(() => {
@@ -49,6 +57,21 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
 
         setMonthly(monthSeconds)
     }, [data, isChange])
+
+    useEffect(() => {
+        if (isChange) {
+            localStorage.removeItem("change")
+            localStorage.setItem("change", JSON.stringify(seconds))
+        }
+    }, [seconds]);
+
+    useEffect(() => {
+        const pr = localStorage.getItem("change")
+        if (pr) {
+            create(JSON.parse(pr))
+        }
+        localStorage.removeItem("change")
+    }, [])
 
     return (
         <aside className={cl.aside}>
@@ -67,7 +90,7 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
                 <button 
                     style={isChange ? {pointerEvents: "none", backgroundColor: "blue"} : {}} 
                     className={cl.aside__change_button}
-                    onClick={startChange}
+                    onClick={() => startChange(0)}
                     >
                         Начать смену
                     </button>
