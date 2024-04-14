@@ -68,9 +68,13 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
     useEffect(() => {
         const pr = localStorage.getItem("change")
         if (pr) {
-            create(JSON.parse(pr))
+            startChange(JSON.parse(pr))
         }
         localStorage.removeItem("change")
+
+        return () => {
+            clearInterval(intervalId)
+        }
     }, [])
 
     return (
