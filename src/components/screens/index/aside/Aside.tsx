@@ -28,7 +28,9 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
         const id = setInterval(() => {
             setSeconds(prevSeconds => prevSeconds + 1);
 
-            const pr = localStorage.getItem("change")
+            const pr = localStorage.getItem("change") || String(seconds)
+
+            console.log("In cycle", pr)
 
             if (!pr) {
                 localStorage.setItem("change", "1")
@@ -71,7 +73,7 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
 
     useEffect(() => {
         const pr = localStorage.getItem("change")
-        console.log(pr)
+        console.log("In beggining", pr)
         if (pr) {
             startChange(JSON.parse(pr))
             localStorage.removeItem("change")
