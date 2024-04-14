@@ -35,24 +35,24 @@ const Index: FC = () => {
 
     const user = getUserFromStorage()
 
-    console.log(sessions)
-
     useEffect(() => {
-        setUntilSeconds(0)
+        const updateSeconds = () => {
+            setUntilSeconds(0)
 
-        const hours = (new Date()).getHours()
-        const minutes = (new Date()).getMinutes()
+            const minutes = (new Date()).getMinutes()
 
-        for (let i = 0; i < (sessions?.length || 0); i++) {
-            const currentHour = Number(sessions![i].hour[0] + sessions![i].hour[1])
-
-            if (currentHour > hours) {
-                setUntilSeconds((60 - minutes) * 60 + (3600 * (currentHour - hours - 1)))
-            }
+            setUntilSeconds(3600 - minutes * 60)
         }
-    }, [sessions, date])
 
-    console.log(untilSeconds)
+        const secondsInterval = setInterval(() => {
+            updateSeconds()
+        }, 1000 * 60)
+
+        return () => {
+            clearInterval(secondsInterval)
+        }
+        
+    }, [sessions, date, (new Date()).getMinutes()])
     
     return ( 
         <div className={cl.wrapper}>

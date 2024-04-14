@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import cl from "./Aside.module.css"
 import { ChangesService } from "@/services/changes.service";
 import { useQuery } from "@tanstack/react-query";
@@ -15,14 +15,18 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
 
     const [isChange, setIsChange] = useState<Boolean>(false);
     const [seconds, setSeconds] = useState<number>(0)
+    const [intervalId, setIntervalId] = useState<any>()
+    const [montly, setMonthly] = useState<number>(0)
 
-    const startChange = () => {
+    const startChange = useCallback( () => {
         setIsChange(true);
 
-        setInterval(() => {
-            setSeconds(changeSeconds => changeSeconds + 1)
-        }, 1000)
-    }
+        const id = setInterval(() => {
+            setSeconds(seconds => seconds + 1);
+        }, 1000);
+
+        setIntervalId(id)
+    }, [])
 
     const endChange = async () => {
         setIsChange(false);
@@ -30,20 +34,21 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
         setSeconds(0)
         await ChangesService.create({date, length: String(seconds)});
 
-        for (let i = 1; i < 100; i++) {
-            window.clearInterval(i);
-        }
+
+        setMonthly(montly => montly + seconds)
+
+        clearInterval(intervalId)
     }
 
     const { isLoading, error, data } = useQuery(
-        ['change-all', date], async () => ChangesService.getAll()
+        ['change-all', date, isChange], async () => ChangesService.getAll()
     );
 
-    const monthly = useMemo(() => {
-        return data?.data.reduce((summ: number, el: IChange) => summ + Number(el.length), 0)
+    useEffect(() => {
+        const monthSeconds = data?.data.reduce((summ: number, el: IChange) => summ + Number(el.length), 0) || 0
+
+        setMonthly(monthSeconds)
     }, [data, isChange])
-
-
 
     return (
         <aside className={cl.aside}>
@@ -77,7 +82,7 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
                     <div>Время смены:</div>
                     {isChange && (new Date(seconds * 1000).toISOString().slice(11, 19))}
                     <div>За месяц:</div>
-                    {(new Date((monthly || 0) * 1000).toISOString().slice(11, 19))}
+                    {(new Date((montly || 0) * 1000).toISOString().slice(11, 19))}
                 </div>
                 <div className={cl.aside__remain}>
                     <div>Осталось:</div>
