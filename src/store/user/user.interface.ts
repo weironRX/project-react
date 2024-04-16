@@ -12,11 +12,16 @@ export interface ITokens {
 export interface IInitialState {
     user: IUserState | null,
     isLoading: boolean
+    isError: boolean
 }
 
-export interface IEmailPassword {
+export interface ILogin {
     login: string,
-    password: string
+    password: string,
+}
+
+export interface IRegister extends ILogin {
+    name: string
 }
 
 export interface IAuthResponse extends ITokens {

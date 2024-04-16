@@ -1,65 +1,37 @@
 import useActions from "@/hooks/useActions";
 import { useAuth } from "@/hooks/useAuth";
-import { IEmailPassword } from "@/store/user/user.interface";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import Field from "@/ui/input/Field";
 import Loader from "@/ui/Loader/Loader";
 import cl from "./Auth.module.css"
+import Login from "./login/Login";
+import Register from "./register/Register";
 
 const Auth: FC = () => {
 
     useAuthRedirect()
 
-    const {isLoading} = useAuth()
+    const [type, setType] = useState<"login" | "register">("register")
 
-    const {auth} = useActions()
-
-    const [type, setType] = useState<"login" | "register">("login")
-
-    const {register: formRegister, handleSubmit, formState: {errors}, reset} = useForm<IEmailPassword>({
-        mode: "onChange"
-    })
-
-    const onSubmit: SubmitHandler<IEmailPassword> = (data: IEmailPassword): void => {
-        console.log(data)
-        auth({data, type});
-        reset();
-    }
+    useEffect(() => {
+        localStorage.removeItem("change")
+    }, [])
 
     return (
         <div title="Auth" className={cl.wrapper}>
-            <form onSubmit={handleSubmit(onSubmit)} className={cl.section}>
+            <div className={cl.wrapper__form}>
+                {type === "login" ? <Login /> : <Register />}
 
-                <h1 className={cl.title}>Авторизация</h1>
-                {isLoading ? <Loader /> : <>
-
-                    <Field 
-                        placeholder={"Логин"}
-                        type="text"
-                        {...formRegister("login", {
-                            required: "Email is required",
-                        })}
-                    />
-
-                    <Field 
-                        placeholder={"Пароль"}
-                        type="password"
-                        {...formRegister("password", {
-                            required: "Password is required",
-                            minLength: {
-                                value: 3,
-                                message: "Password min length is 3 symbols"
-                            }
-                        })}
-                    />
-
-                    <button type="submit" className={cl.button}>
-                        Войти
+                <div className={cl.change__button}>
+                    <button 
+                        type="button"
+                        onClick={() => setType(type === "login" ? "register" : "login")}>
+                            {type === "login" ? "К регистрации" : "К входу"}
                     </button>
-                </>}
-            </form>
+                </div>
+            </div>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import cl from "./Aside.module.css"
 import { ChangesService } from "@/services/changes.service";
 import { useQuery } from "@tanstack/react-query";
 import { IChange } from "@/types/change.interface";
+import useActions from "@/hooks/useActions";
 
 interface IAside {
     date: string,
@@ -17,6 +18,8 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
     const [seconds, setSeconds] = useState<number>(0)
     const [intervalId, setIntervalId] = useState<any>()
     const [montly, setMonthly] = useState<number>(0)
+
+    const { logout } = useActions()
 
     const startChange = (seconds: number) => {
         setIsChange(true);
@@ -118,6 +121,10 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
                     <div>Осталось:</div>
                     {(new Date(remain * 1000).toISOString().slice(11, 19))}
                 </div>
+            </div>
+
+            <div className={cl.exit}>
+                <button onClick={() => logout()}>Выйти</button>
             </div>
         </aside>
     )
