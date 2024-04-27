@@ -71,7 +71,12 @@ const Item: FC<IItem> = ({session, date, checked_hour}) => {
                     {checked_hour}
                 </th>
                 <th>
-                    <button className={cl.change_button} onClick={() => setIsChanging(!isChanging)}>{!isChanging ? "Изменить" : "Сохранить"}</button>
+                    <button 
+                        className={cl.change_button} 
+                        onClick={() => setIsChanging(!isChanging)}
+                    >
+                        {!isChanging ? "Изменить" : "Сохранить"}
+                    </button>
                 </th>
             </tr>
             <tr>

@@ -44,11 +44,12 @@
 
 .save_button {
     background-color: #fef7e7;
-    height: 50px;
+    min-height: 50px;
     padding: 10px;
     color: #f5c43c;
-    width: 150px;
     margin: auto 0;
+    max-width: 300px;
+    white-space: normal;
 }
 
 .title {

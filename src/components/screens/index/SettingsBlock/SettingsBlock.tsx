@@ -24,6 +24,7 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
     const [contact, setContact] = useState<string>("")
     const [service, setSerivce] = useState<string>("")
     const [price, setPrice] = useState<string>("")
+    const [isSaveError, setISSaveError] = useState(false);
 
     const handleServiceChange = (e: any) => {
         console.log(e)
@@ -41,7 +42,18 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
         setContact(element?.contact)
     }
 
+    const reset = (): void => {
+        handleChange({
+            alias: "",
+            contact: "",
+            service: "",
+            price: ""
+        })
+    }
+
     const save = async () => {
+        setISSaveError(false)
+
         handleChange({
             alias: alias,
             contact: contact,
@@ -53,14 +65,16 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
             try {
                 await ServiceService.create({name: service, price: price});
             } catch (e) {
-                console.log(e)
+                setISSaveError(true)
+                reset()
             }
         }
         if (alias != "") {
             try {
                 await ClientService.create({alias: alias, contact: contact});
             } catch (e) {
-                console.log(e)
+                setISSaveError(true)
+                reset()
             }
         }
     }
@@ -93,7 +107,7 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
                     <input className={cl.input} type="text" value={contact} onChange={e => setContact(e.target.value)}/>
                 </div>
             </div>
-            <button className={cl.save_button} onClick={() => save()}>Выбрать</button>
+            <button className={cl.save_button} onClick={() => save()}>{isSaveError ? "Ошибка сохранения данных \n Нажмите для повторной попытки" : "Выбрать"}</button>
         </div>
     )
 }
