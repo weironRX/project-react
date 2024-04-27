@@ -28,8 +28,6 @@ const Login: FC = () => {
         setUnauthorizedError(true)
     }
 
-    console.log(errors)
-
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cl.form}>
             <h1 className={cl.title}>Auth</h1>

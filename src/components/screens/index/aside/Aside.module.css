@@ -7,6 +7,30 @@
 
 .aside {
     background-color: #f1f4f1;
+    transition: .5s all;
+}
+
+@media (max-width: 950px) {
+    .aside {
+        position: absolute;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: auto;
+        height: 100vh;
+    }
+}
+
+.aside_active {
+    background-color: #f1f4f1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: auto;
+    z-index: 5;
+    height: 100vh;
+    transition: .5s all;
 }
 
 .aside__date {

@@ -6,20 +6,39 @@
     margin-right: 4px;
     border-bottom: 2px solid #f2f2f2;
     font-weight: 400;
-    padding: 10px 0;
+    padding: 10px 8px;
+    text-align: center;
+    white-space: normal;
+    overflow: auto;
+    word-break: break-all;
 }
 
 .item__changing > th {
     margin-right: 4px;
     border-bottom: 2px solid #f2f2f2;
     font-weight: 400;
-    padding: 10px 0;
+    padding: 10px 10px;
+    white-space: normal;
+    overflow: auto;
+    word-break: break-all;
+    box-sizing: border-box;
 }
 
 .change_button {
     transition: .4s all;
 }
 
+@media (max-width: 767px) {
+    .change_button {
+        font-size: 17px;
+    }
+}
+
 .change_button:hover {
     color: #78d178;
+}
+
+.hour {
+    font-weight: 900;
+    font-size: 18px;
 }

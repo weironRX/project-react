@@ -42,10 +42,14 @@ const Clients: FC = () => {
                 <table>
                     <thead className={cl.table__head}>
                         <tr>
-                            <th><input className={cl.input} placeholder="Поиск" value={aliasSearch} onChange={e => setAliasSearch(e.target.value)}/></th>
-                            <th><input className={cl.input} placeholder="Поиск" value={contactsSearch} onChange={e => setContactsSearch(e.target.value)}/></th>
+                            <th><input className={cl.input} placeholder="По псевдониму" value={aliasSearch} onChange={e => setAliasSearch(e.target.value)}/></th>
+                            <th><input className={cl.input} placeholder="По контактам" value={contactsSearch} onChange={e => setContactsSearch(e.target.value)}/></th>
                         </tr>
                     </thead>
+                    <div className={cl.mobile_head}>
+                        <input className={cl.input} placeholder="По псевдониму" value={aliasSearch} onChange={e => setAliasSearch(e.target.value)}/>
+                        <input className={cl.input} placeholder="По контактам" value={contactsSearch} onChange={e => setContactsSearch(e.target.value)}/>
+                    </div>
                     <tbody>
                         {data &&
                         data.data.map((el: IClient) => 

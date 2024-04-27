@@ -4,15 +4,19 @@ import { ChangesService } from "@/services/changes.service";
 import { useQuery } from "@tanstack/react-query";
 import { IChange } from "@/types/change.interface";
 import useActions from "@/hooks/useActions";
+import { useOutside } from "@/hooks/useOutside";
 
 interface IAside {
     date: string,
     changeDate: any,
-    remain: number
+    remain: number,
+    isOpen: boolean,
+    setIsOpen: Function,
+    refAside: React.RefObject<HTMLInputElement>
 }
 
 
-const Aside: FC<IAside> = ({date, changeDate, remain}) => {
+const Aside: FC<IAside> = ({date, changeDate, remain, setIsOpen, isOpen, refAside}) => {
 
     const [isChange, setIsChange] = useState<Boolean>(false);
     const [seconds, setSeconds] = useState<number>(0)
@@ -33,8 +37,6 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
 
             const pr = localStorage.getItem("change") || String(seconds)
 
-            console.log("In cycle", pr)
-
             if (!pr) {
                 localStorage.setItem("change", "1")
             } else {
@@ -45,6 +47,7 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
 
         setIntervalId(id)
     }
+    
 
     const create = async (seconds: number) => {
         await ChangesService.create({date, length: String(seconds)});
@@ -76,7 +79,6 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
 
     useEffect(() => {
         const pr = localStorage.getItem("change")
-        console.log("In beggining", pr)
         if (pr) {
             startChange(JSON.parse(pr))
             localStorage.removeItem("change")
@@ -84,7 +86,7 @@ const Aside: FC<IAside> = ({date, changeDate, remain}) => {
     }, [])
 
     return (
-        <aside className={cl.aside}>
+        <aside ref={refAside} className={(isOpen ? cl.aside_active : cl.aside)}>
             <div className={cl.aside__date}>
                 <input className={cl.aside__input} onChange={changeDate} type="date" />
                 {date}

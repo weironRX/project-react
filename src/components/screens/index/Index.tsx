@@ -1,5 +1,5 @@
 import useActions from '@/hooks/useActions';
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import cl from "./Index.module.css"
 import { formattedDate } from '@/utils/formatted-date';
 import { SessionService } from '@/services/sessions.service';
@@ -11,6 +11,8 @@ import { getHoursArray } from '@/utils/get-hours-array';
 import { getUserFromStorage } from '@/services/token.service';
 import Aside from './aside/Aside';
 import { current } from '@reduxjs/toolkit';
+import { useOutside } from '@/hooks/useOutside';
+import classNames from 'classnames';
 
 
 const Index: FC = () => {
@@ -51,15 +53,22 @@ const Index: FC = () => {
         return () => clearInterval(secondsInterval)
         
     }, [date, sessions])
-    
+
+    const button = useRef(null)
+
+    const {isOpen, ref, setIsOpen} = useOutside(false, button.current)
+
     return ( 
         <div className={cl.wrapper}>
             <Aside 
                 date={date}
                 changeDate={changeDate}
                 remain={untilSeconds}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                refAside={ref}
             />
-            <main>
+            <main className={cl.main}>
                 <table className={cl.table}>
                     <thead className={cl.table__header}>
                         <tr>
@@ -68,7 +77,11 @@ const Index: FC = () => {
                             <th className={cl.header_table__item}>Виды услуг</th>
                             <th className={cl.header_table__item}>Оплата</th>
                             <th className={cl.header_table__item}>Время</th>
-                            <th></th>
+                            <th className={cl.show_button}>
+                                <button ref={button} className={(!isOpen ? cl.menu_button : [cl.menu_button, cl.menu_button_active].join(" "))} onClick={() => setIsOpen(isOpen => !isOpen)}>
+                                    <div></div>
+                                </button>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

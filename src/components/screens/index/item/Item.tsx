@@ -67,7 +67,7 @@ const Item: FC<IItem> = ({session, date, checked_hour}) => {
                 <th>
                     {sessionData.price}
                 </th>
-                <th>
+                <th className={cl.hour}>
                     {checked_hour}
                 </th>
                 <th>

@@ -4,13 +4,42 @@
     font-family: "Montserrat", sans-serif;
 }
 
+.item_active {
+    border-bottom: 1px solid #f5c43c;
+    margin: 10px;
+    font-family: "Montserrat", sans-serif;
+}
+
+
 .row {
     padding: 10px 0;
+}
+
+@media (max-width: 950px) {
+    .item {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .item_active {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .input {
+        font-size: 20px;
+        font-weight: 700;
+    }
 }
 
 .button {
     margin: 10px 0 0 0;
     transition: .4s all;
+    font-weight: 700;
 }
 
 .button:hover {

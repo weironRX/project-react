@@ -35,8 +35,8 @@ const History: FC = () => {
             <aside>
                 <BackButton />
             </aside>
-            <div>
-                <h1 className={cl.title}>История</h1>
+            <h1 className={cl.title}>История</h1>
+            <div className={cl.table_wrapper}>
                 <table className={cl.table}>
                     <thead>
                         <tr>

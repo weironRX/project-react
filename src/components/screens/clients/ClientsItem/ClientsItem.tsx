@@ -19,7 +19,7 @@ const ClientsItem: FC<IClientsItem> = ({client}) => {
     )
 
     return (
-        <tr className={cl.item}>
+        <tr className={(isChanging ? cl.item_active : cl.item)}>
             <th className={cl.row}>
                 <input className={cl.input} type="text" value={alias} readOnly={!isChanging} onChange={(e) => setAlias(e.target.value)}/>
             </th>

@@ -7,4 +7,7 @@
 .row {
     padding: 10px 0;
     font-weight: 400;
+    white-space: normal;
+    max-width: none;
+    overflow: auto; 
 }

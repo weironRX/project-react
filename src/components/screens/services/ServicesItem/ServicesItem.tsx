@@ -19,7 +19,7 @@ const ServicesItem: FC<IServicesItem> = ({ service }) => {
     )
 
     return (
-        <tr className={cl.item}>
+        <tr className={(isChanging ? cl.item_active : cl.item)}>
             <th className={cl.row}>
                 <input className={cl.input} type="text" value={serviceName} readOnly={!isChanging} onChange={(e) => setSerivceName(e.target.value)}/>
             </th>

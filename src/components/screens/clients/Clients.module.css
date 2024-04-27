@@ -3,6 +3,8 @@
 .table {
     margin-top: 10px;
     table-layout: fixed;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
 .table table {
@@ -33,9 +35,25 @@
     font-weight: 500;
     color: white;
     background-color: #1085f9;
-    margin-right: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
     padding-top: 1px;
 }
 
+.mobile_head {
+    display: none;
+    flex-direction: column;
+}
+
+@media (max-width: 950px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    .table__head {
+        display: none;
+    }
+    .mobile_head {
+        display: flex;
+        gap: 10px;
+    }
+}

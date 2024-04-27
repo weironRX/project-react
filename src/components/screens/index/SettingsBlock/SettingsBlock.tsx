@@ -50,17 +50,25 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
         })
 
         if (service != "") {
-            await ServiceService.create({name: service, price: price});
+            try {
+                await ServiceService.create({name: service, price: price});
+            } catch (e) {
+                console.log(e)
+            }
         }
         if (alias != "") {
-            await ClientService.create({alias: alias, contact: contact});
+            try {
+                await ClientService.create({alias: alias, contact: contact});
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 
     return (
         <div className={cl.container}>
             <div className={cl.container__item}>
-                <p>Выбрать услугу</p>
+                <h3 className={cl.title}>Выбрать услугу</h3>
                 <select onChange={handleServiceChange}>
                     <option disabled selected>Выбрать услугу</option>
                     {serviceData && serviceData.data.map((el: IService) => 
@@ -73,7 +81,7 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
                 </div>
             </div>
             <div className={cl.container__item}>
-                <p>Выбрать клиента</p>
+                <h3 className={cl.title}>Выбрать клиента</h3>
                 <select onChange={handleClientChange}>
                     <option disabled selected>Выбрать клиента</option>
                     {clientData && clientData.data.map((el: IClient) => 

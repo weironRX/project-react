@@ -5,9 +5,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Climate+Crisis&family=Freehand&family=Kanit:ital,wght@0,500;0,800;1,600&family=Lato&family=Montserrat:ital,wght@0,100;0,400;1,100&family=Open+Sans:wght@400;800&family=Oswald&family=Poppins&family=Roboto&family=Roboto+Mono&family=Rubik+Distressed&family=Rubik+Iso&family=Rubik+Microbe&family=Rubik+Vinyl&family=Ubuntu&display=swap');
 
 
+html {
+    width: 100%;
+}
+
 body {
     @apply text-base text-black;
     font-family: "Golos Text", sans-serif;
+    width: 100%;
 }
 
 .disabled {
