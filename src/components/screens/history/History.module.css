@@ -19,6 +19,7 @@
     border-radius: 10px;
     margin-bottom: 20px;
     padding-top: 1px;
+    margin-top: 10px;
 }
 
 .table_wrapper {
@@ -40,6 +41,11 @@
     white-space: normal;
     max-width: none;
     overflow: auto; 
+}
+
+.main {
+    margin-right: 10px;
+    overflow-x: auto;
 }
 
 @media (max-width: 950px) {

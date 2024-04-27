@@ -35,28 +35,30 @@ const History: FC = () => {
             <aside>
                 <BackButton />
             </aside>
-            <h1 className={cl.title}>История</h1>
-            <div className={cl.table_wrapper}>
-                <table className={cl.table}>
-                    <thead>
-                        <tr>
-                            <th>ФИО/Псевдоним</th>
-                            <th>Контакты/соцсети</th>
-                            <th>Виды услуг</th>
-                            <th>Оплата</th>
-                            <th>Время</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data &&
-                        data.data.map((el: ISession) => 
-                            <HistoryItem 
-                                session={el}
-                            />
-                        )
-                        }
-                    </tbody>
-                </table>
+            <div className={cl.main}>
+                <h1 className={cl.title}>История</h1>
+                <div className={cl.table_wrapper}>
+                    <table className={cl.table}>
+                        <thead>
+                            <tr>
+                                <th>ФИО/Псевдоним</th>
+                                <th>Контакты/соцсети</th>
+                                <th>Виды услуг</th>
+                                <th>Оплата</th>
+                                <th>Время</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data &&
+                            data.data.map((el: ISession) => 
+                                <HistoryItem 
+                                    session={el}
+                                />
+                            )
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )
