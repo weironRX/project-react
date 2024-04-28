@@ -7,6 +7,7 @@ const nextConfig = {
     },
     output: "export",
     distDir: "dist",
+    basePath: '/project-react',
 }
 
 module.exports = nextConfig
