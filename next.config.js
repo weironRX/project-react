@@ -6,7 +6,8 @@ const nextConfig = {
         APP_URL: process.env.APP_URL
     },
     output: "export",
-    distDir: "dist"
+    distDir: "dist",
+    basePath: "/project-react",
 }
 
 module.exports = nextConfig
