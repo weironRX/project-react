@@ -28,8 +28,6 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const handleServiceChange = (e: any) => {
-        console.log(e)
-
         const element = serviceData?.data.find(item => item.name == e.target.value)!
 
         setSerivce(element?.name)

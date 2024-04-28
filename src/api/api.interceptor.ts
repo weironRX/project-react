@@ -20,6 +20,8 @@ instance.interceptors.request.use(config => {
 instance.interceptors.request.use(
     config => config,
     async error => {
+        console.log("Interceptor used")
+
         const originalRequest = error.config
 
         if (error?.response?.status === 401 ||

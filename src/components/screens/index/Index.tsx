@@ -1,4 +1,3 @@
-import useActions from '@/hooks/useActions';
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import cl from "./Index.module.css"
 import { formattedDate } from '@/utils/formatted-date';
@@ -10,12 +9,11 @@ import { sessionDefault } from './session-default';
 import { getHoursArray } from '@/utils/get-hours-array';
 import { getUserFromStorage } from '@/services/token.service';
 import Aside from './aside/Aside';
-import { current } from '@reduxjs/toolkit';
 import { useOutside } from '@/hooks/useOutside';
-import classNames from 'classnames';
 
 
 const Index: FC = () => {
+
 
     const [date, setDate] = useState<string>(formattedDate(new Date()))
     const [sessions, setSessions] = useState<ISession[]>()

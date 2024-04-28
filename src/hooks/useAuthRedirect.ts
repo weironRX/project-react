@@ -8,6 +8,8 @@ export const useAuthRedirect = () => {
 
     const {user} = useAuth()
 
+    console.log(user)
+
     useEffect(() => {
         if (user) replace("/")
     }, [user])

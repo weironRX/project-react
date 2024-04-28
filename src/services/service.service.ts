@@ -20,6 +20,7 @@ export const ServiceService = {
     },
 
     async create(data: ICreateService) {
+        console.log(data)
         return instance<IService>({
             url: `${SERVICE}`,
             method: EnumMethods.POST,
