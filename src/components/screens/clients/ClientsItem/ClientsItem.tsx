@@ -14,8 +14,10 @@ const ClientsItem: FC<IClientsItem> = ({client}) => {
     const [contact, setContact] = useState<string>(client.contact)
     const [isChanging, setIsChanging] = useState(false)
 
+    console.log(client.id)
+
     const { isLoading, isError, data } = useQuery(
-        ["change-client", isChanging], async () => ClientService.update({alias, contact})
+        ["change-client", isChanging], async () => ClientService.update({id: client.id, alias, contact})
     )
 
     return (

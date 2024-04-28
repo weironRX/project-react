@@ -15,6 +15,8 @@ const Clients: FC = () => {
         ["clients", aliasSearch, contactsSearch], async () => await ClientService.getAllBySearch(aliasSearch, contactsSearch)
     )
 
+    console.log(data)
+
     useEffect(() => {
         const pr = localStorage.getItem("change")
 

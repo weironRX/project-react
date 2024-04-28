@@ -15,7 +15,7 @@ const ServicesItem: FC<IServicesItem> = ({ service }) => {
     const [isChanging, setIsChanging] = useState(false)
 
     const { isLoading, isError, data } = useQuery(
-        ["change-service", isChanging], async () => ServiceService.update({name: serviceName, price})
+        ["change-service", isChanging], async () => ServiceService.update({id: service.id, name: serviceName, price})
     )
 
     return (

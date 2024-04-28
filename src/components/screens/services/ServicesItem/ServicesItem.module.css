@@ -27,6 +27,12 @@
     overflow: auto;
 }
 
+@media (min-width: 950px) {
+    .input {
+        text-align: center;
+    }
+}
+
 @media (max-width: 950px) {
     .item {
         display: flex;
