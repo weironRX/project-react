@@ -39,7 +39,7 @@ const Register: FC = () => {
                         error={errors.login?.message}
                         type="text"
                         {...formRegister("login", {
-                            required: "Login is required",
+                            required: "Введите логин",
                         })}
                     />
 
@@ -48,7 +48,7 @@ const Register: FC = () => {
                         error={errors.password?.message}
                         type="password"
                         {...formRegister("password", {
-                            required: "Password is required",
+                            required: "Введите пароль",
                         })}
                     />
 
@@ -57,7 +57,7 @@ const Register: FC = () => {
                         error={errors.password?.message}
                         type="password"
                         {...formRegister("name", {
-                            required: "Name is required",
+                            required: "Введите имя",
                         })}
                     />
 
