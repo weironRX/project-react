@@ -3,3 +3,8 @@ export interface IService {
     name: string,
     price: string
 }
+
+export interface ICreateService {
+    name: string,
+    price: string
+}

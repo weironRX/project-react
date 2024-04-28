@@ -1,6 +1,6 @@
 import instance from "@/api/api.interceptor"
 import { EnumMethods } from "./methods.enum"
-import { IService } from "@/types/service.interface"
+import { ICreateService, IService } from "@/types/service.interface"
 
 const SERVICE: string = 'service'
 
@@ -19,7 +19,7 @@ export const ServiceService = {
         })
     },
 
-    async create(data: IService) {
+    async create(data: ICreateService) {
         return instance<IService>({
             url: `${SERVICE}`,
             method: EnumMethods.POST,

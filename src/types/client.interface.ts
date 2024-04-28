@@ -3,3 +3,8 @@ export interface IClient {
     alias: string,
     contact: string
 }
+
+export interface ICreateClient {
+    alias: string,
+    contact: string
+}
