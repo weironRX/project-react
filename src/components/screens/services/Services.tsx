@@ -39,31 +39,33 @@ const Services: FC = () => {
     }
 
     return (
-        <div className={cl.container}>
-            <aside>
-                <BackButton />
-            </aside>
-            <div className={cl.table}>
-                <h1 className={cl.title}>Услуги</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th className={cl.subtitle}>Вид Услуги</th>
-                            <th className={cl.subtitle}>Цена</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data && 
-                        data.data.map((el: IService) =>
-                            <ServicesItem 
-                                service = {el}
-                            />
-                        )
-                        }
-                    </tbody>
-                </table>
+        <div>
+            <div className={cl.container}>
+                <aside>
+                    <BackButton />
+                </aside>
+                <div className={cl.table}>
+                    <h1 className={cl.title}>Услуги</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th className={cl.subtitle}>Вид Услуги</th>
+                                <th className={cl.subtitle}>Цена</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data && 
+                            data.data.map((el: IService) =>
+                                <ServicesItem 
+                                    service = {el}
+                                />
+                            )
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <button className={cl.create_new}onClick={createNew}>Создать новую</button>
             </div>
-            <button className={cl.create_new}onClick={createNew}>Создать новую</button>
         </div>
     )
 }

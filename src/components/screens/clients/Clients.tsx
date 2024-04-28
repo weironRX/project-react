@@ -40,33 +40,35 @@ const Clients: FC = () => {
     }
 
     return (
-        <div className={cl.container}>
-            <aside className={cl.aside}>
-                <BackButton />
-            </aside>
-            <div className={cl.table}>
-                <h1 className={cl.title}>Список клиентов</h1>
-                <table>
-                    <thead className={cl.table__head}>
-                        <tr>
-                            <th><input className={cl.input} placeholder="По псевдониму" value={aliasSearch} onChange={e => setAliasSearch(e.target.value)}/></th>
-                            <th><input className={cl.input} placeholder="По контактам" value={contactsSearch} onChange={e => setContactsSearch(e.target.value)}/></th>
-                        </tr>
-                    </thead>
-                    <div className={cl.mobile_head}>
-                        <input className={cl.input} placeholder="По псевдониму" value={aliasSearch} onChange={e => setAliasSearch(e.target.value)}/>
-                        <input className={cl.input} placeholder="По контактам" value={contactsSearch} onChange={e => setContactsSearch(e.target.value)}/>
-                    </div>
-                    <tbody>
-                        {data &&
-                        data.data.map((el: IClient) => 
-                            <ClientsItem 
-                                client={el}
-                            />
-                        )
-                        }
-                    </tbody>
-                </table>
+        <div>
+            <div className={cl.container}>
+                <aside className={cl.aside}>
+                    <BackButton />
+                </aside>
+                <div className={cl.table}>
+                    <h1 className={cl.title}>Список клиентов</h1>
+                    <table>
+                        <thead className={cl.table__head}>
+                            <tr>
+                                <th><input className={cl.input} placeholder="По псевдониму" value={aliasSearch} onChange={e => setAliasSearch(e.target.value)}/></th>
+                                <th><input className={cl.input} placeholder="По контактам" value={contactsSearch} onChange={e => setContactsSearch(e.target.value)}/></th>
+                            </tr>
+                        </thead>
+                        <div className={cl.mobile_head}>
+                            <input className={cl.input} placeholder="По псевдониму" value={aliasSearch} onChange={e => setAliasSearch(e.target.value)}/>
+                            <input className={cl.input} placeholder="По контактам" value={contactsSearch} onChange={e => setContactsSearch(e.target.value)}/>
+                        </div>
+                        <tbody>
+                            {data &&
+                            data.data.map((el: IClient) => 
+                                <ClientsItem 
+                                    client={el}
+                                />
+                            )
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <button className={cl.create_new} onClick={createNew}>Создать новую</button>
         </div>
