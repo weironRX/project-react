@@ -36,6 +36,8 @@ const Services: FC = () => {
     const createNew = async () => {
         await ServiceService.create({name: "", price: ""});
         await refetch()
+
+        console.log(data)
     }
 
     return (
@@ -58,14 +60,15 @@ const Services: FC = () => {
                             data.data.map((el: IService) =>
                                 <ServicesItem 
                                     service = {el}
+                                    key={el.id}
                                 />
                             )
                             }
                         </tbody>
                     </table>
                 </div>
-                <button className={cl.create_new}onClick={createNew}>Создать новую</button>
             </div>
+            <button className={cl.create_new} onClick={createNew}>Создать новую</button>
         </div>
     )
 }

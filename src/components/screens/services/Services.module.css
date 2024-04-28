@@ -55,9 +55,16 @@
 .create_new {
     background-color: #f5c43c;
     width: 150px;
-    margin: 20px auto 0 auto;
+    margin: 30px auto 0 auto;
     font-family: "Montserrat", sans-serif;
     color: white;
     padding: 10px;
     display: grid;
+    border: 1px solid #f5c43c;
+    transition: .3s all;
+}
+
+.create_new:hover {
+    background-color: white;
+    color: #f5c43c;
 }

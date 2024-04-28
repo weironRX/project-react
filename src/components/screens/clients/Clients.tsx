@@ -63,6 +63,7 @@ const Clients: FC = () => {
                             data.data.map((el: IClient) => 
                                 <ClientsItem 
                                     client={el}
+                                    key={el.id}
                                 />
                             )
                             }
