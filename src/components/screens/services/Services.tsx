@@ -9,7 +9,7 @@ import BackButton from "@/ui/BackButton/BackButton";
 
 const Services: FC = () => {
 
-    const { isLoading, error, data } = useQuery(
+    const { isLoading, error, data, refetch} = useQuery(
         ['services'], async () => {
             const response = await ServiceService.getAll()
             return response
@@ -32,6 +32,11 @@ const Services: FC = () => {
 
         return () => clearInterval(id)
     })
+
+    const createNew = async () => {
+        await ServiceService.create({name: "", price: ""});
+        await refetch()
+    }
 
     return (
         <div className={cl.container}>
@@ -58,6 +63,7 @@ const Services: FC = () => {
                     </tbody>
                 </table>
             </div>
+            <button className={cl.create_new}onClick={createNew}>Создать новую</button>
         </div>
     )
 }

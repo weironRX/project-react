@@ -11,7 +11,7 @@ const Clients: FC = () => {
     const [aliasSearch, setAliasSearch] = useState<string>("")
     const [contactsSearch, setContactsSearch] = useState<string>("")
 
-    const {isLoading, isError, data} = useQuery(
+    const {isLoading, isError, data, refetch} = useQuery(
         ["clients", aliasSearch, contactsSearch], async () => await ClientService.getAllBySearch(aliasSearch, contactsSearch)
     )
 
@@ -33,6 +33,11 @@ const Clients: FC = () => {
 
         return () => clearInterval(id)
     })
+
+    const createNew = async () => {
+        await ClientService.create({alias: "", contact: ""});
+        await refetch()
+    }
 
     return (
         <div className={cl.container}>
@@ -63,6 +68,7 @@ const Clients: FC = () => {
                     </tbody>
                 </table>
             </div>
+            <button className={cl.create_new} onClick={createNew}>Создать новую</button>
         </div>
     )
 }
