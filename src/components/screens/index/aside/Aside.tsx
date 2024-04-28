@@ -93,9 +93,9 @@ const Aside: FC<IAside> = ({date, changeDate, remain, setIsOpen, isOpen, refAsid
             </div>
 
             <nav className={cl.aside__nav}>
-                <a className={cl.aside__link} href="project-react/clients">Список клиентов</a>
-                <a className={cl.aside__link} href="project-react/services">Услуги</a>
-                <a className={cl.aside__link} href="project-react/history">История</a>
+                <a className={cl.aside__link} href="clients">Список клиентов</a>
+                <a className={cl.aside__link} href="services">Услуги</a>
+                <a className={cl.aside__link} href="history">История</a>
             </nav>
 
             <div className={cl.aside__change}>
