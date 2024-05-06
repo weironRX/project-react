@@ -7,6 +7,8 @@ import Input from "./../Input/Input"
 import { useQuery } from "@tanstack/react-query";
 import { SessionService } from "@/services/sessions.service";
 import SettingsBlock from "../SettingsBlock/SettingsBlock";
+import { ServiceService } from "@/services/service.service";
+import { ClientService } from "@/services/client.service";
 
 interface IItem {
     session: ISession,
@@ -31,7 +33,7 @@ const Item: FC<IItem> = ({session, date, checked_hour}) => {
         }
     }, [session])
 
-    const handleChange: any = ({ alias, contact, service, price}: any) => {
+    const handleChange: any = async ({ alias, contact, service, price}: any) => {
 
         setSessionData({
           ...sessionData,
@@ -51,6 +53,17 @@ const Item: FC<IItem> = ({session, date, checked_hour}) => {
             }
         }
     );
+
+    const handleCreate = async () => {
+        setIsChanging(!isChanging)
+
+        if (sessionData.service != "") {
+            await ServiceService.create({name: sessionData.service, price: sessionData.price});
+        }
+        if (sessionData.alias != "") {
+            await ClientService.create({alias: sessionData.alias, contact: sessionData.contact});
+        }
+    }
 
     return (
         <Fragment>
@@ -73,7 +86,7 @@ const Item: FC<IItem> = ({session, date, checked_hour}) => {
                 <th>
                     <button 
                         className={cl.change_button} 
-                        onClick={() => setIsChanging(!isChanging)}
+                        onClick={handleCreate}
                     >
                         {!isChanging ? "Изменить" : "Сохранить"}
                     </button>
@@ -82,6 +95,10 @@ const Item: FC<IItem> = ({session, date, checked_hour}) => {
             <tr>
                 {isChanging && 
                 <SettingsBlock
+                    data_alias={session.alias}
+                    data_contact={session.contact}
+                    data_price={session.price}
+                    data_service={session.service}
                     handleChange={handleChange}
                 />
                 }

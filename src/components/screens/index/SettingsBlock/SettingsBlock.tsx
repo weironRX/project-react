@@ -1,6 +1,6 @@
 import { ServiceService } from "@/services/service.service";
 import { useQuery } from "@tanstack/react-query";
-import { ChangeEventHandler, FC, useState } from "react";
+import { ChangeEventHandler, FC, useEffect, useState } from "react";
 import { IService } from "@/types/service.interface";
 import { ClientService } from "@/services/client.service";
 import { IClient } from "@/types/client.interface";
@@ -8,9 +8,13 @@ import cl from "./SettingsBlock.module.css"
 
 interface ISettingsBlock {
     handleChange: any,
+    data_alias: string,
+    data_contact: string,
+    data_service: string,
+    data_price: string
 }
 
-const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
+const SettingsBlock: FC<ISettingsBlock> = ({handleChange, data_alias, data_contact, data_service, data_price}) => {
 
     const { isLoading: isServiceLoading, isError: isServiceError, data: serviceData } = useQuery(
         ["services"], async () => ServiceService.getAll()
@@ -20,12 +24,11 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
         ["clients"], async () => ClientService.getAll()
     )
 
-    const [alias, setAlias] = useState<string>("")
-    const [contact, setContact] = useState<string>("")
-    const [service, setSerivce] = useState<string>("")
-    const [price, setPrice] = useState<string>("")
-    const [isSaveError, setISSaveError] = useState(false);
-    const [isLoading, setIsLoading] = useState(false)
+    const [alias, setAlias] = useState<string>(data_alias)
+    const [contact, setContact] = useState<string>(data_contact)
+    const [service, setSerivce] = useState<string>(data_service)
+    const [price, setPrice] = useState<string>(data_price)
+
 
     const handleServiceChange = (e: any) => {
         const element = serviceData?.data.find(item => item.name == e.target.value)!
@@ -41,17 +44,9 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
         setContact(element?.contact)
     }
 
-    const reset = (): void => {
-        handleChange({
-            alias: "",
-            contact: "",
-            service: "",
-            price: ""
-        })
-    }
 
-    const save = async () => {
-        setISSaveError(false)
+    useEffect(() => {
+        console.log(alias)
 
         handleChange({
             alias: alias,
@@ -59,28 +54,8 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
             service: service,
             price: price
         })
+    }, [alias, contact, service, price])
 
-        if (service != "") {
-            try {
-                setIsLoading(true)
-                await ServiceService.create({name: service, price: price});
-                setIsLoading(false)
-            } catch (e) {
-                setISSaveError(true)
-                reset()
-            }
-        }
-        if (alias != "") {
-            try {
-                setIsLoading(true)
-                await ClientService.create({alias: alias, contact: contact});
-                setIsLoading(false)
-            } catch (e) {
-                setISSaveError(true)
-                reset()
-            }
-        }
-    }
 
     return (
         <div className={cl.container}>
@@ -93,8 +68,8 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
                     )}
                 </select>
                 <div className={cl.container__inputs}>
-                    <input className={cl.input} type="text" value={service} onChange={e => setSerivce(e.target.value)}/>
-                    <input className={cl.input} type="text" value={price} onChange={e => setPrice(e.target.value)}/>
+                    <input className={cl.input} type="text" placeholder="Услуга" value={service} onChange={e => setSerivce(e.target.value)}/>
+                    <input className={cl.input} type="text" placeholder="Цена" value={price} onChange={e => setPrice(e.target.value)}/>
                 </div>
             </div>
             <div className={cl.container__item}>
@@ -106,19 +81,10 @@ const SettingsBlock: FC<ISettingsBlock> = ({handleChange}) => {
                     )}
                 </select>
                 <div className={cl.container__inputs}>
-                    <input className={cl.input} type="text" value={alias} onChange={e => setAlias(e.target.value)}/>
-                    <input className={cl.input} type="text" value={contact} onChange={e => setContact(e.target.value)}/>
+                    <input className={cl.input} type="text" placeholder="ФИО" value={alias} onChange={e => setAlias(e.target.value)}/>
+                    <input className={cl.input} type="text" placeholder="Контакты" value={contact} onChange={e => setContact(e.target.value)}/>
                 </div>
             </div>
-            <button 
-                className={cl.save_button} 
-                onClick={() => save()}
-                >
-                    {isLoading 
-                    ? "Загрузка..."
-                    : (isSaveError ? "Ошибка сохранения данных \n Нажмите для повторной попытки" : "Выбрать")
-                    }
-                </button>
         </div>
     )
 }
