@@ -3,26 +3,52 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px 0;
+    margin: 60px 0;
 }
 
-
+/* HTML: <div class="loader"></div> */
 .loader {
-    width: 50px;
-    height: 50px;
-    border: 3px solid white;
-    animation-name: loader;
-    animation-duration: 3s;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-    animation-iteration-count: infinite;
-    border-radius: 8px;
-}
-
-@keyframes loader {
-    from {
-        transform: rotate(0);
+    width: 65px;
+    aspect-ratio: 1;
+    position: relative;
+  }
+  .loader:before,
+  .loader:after {
+    content: "";
+    position: absolute;
+    border-radius: 50px;
+    box-shadow: 0 0 0 3px inset #fff;
+    animation: l4 2.5s infinite;
+  }
+  .loader:after {
+    animation-delay: -1.25s;
+  }
+  @keyframes l4 {
+    0% {
+      inset: 0 35px 35px 0;
     }
-    to {
-        transform: rotate(360deg);
+    12.5% {
+      inset: 0 35px 0 0;
     }
-}
+    25% {
+      inset: 35px 35px 0 0;
+    }
+    37.5% {
+      inset: 35px 0 0 0;
+    }
+    50% {
+      inset: 35px 0 0 35px;
+    }
+    62.5% {
+      inset: 0 0 0 35px;
+    }
+    75% {
+      inset: 0 0 35px 35px;
+    }
+    87.5% {
+      inset: 0 0 35px 0;
+    }
+    100% {
+      inset: 0 35px 35px 0;
+    }
+  }

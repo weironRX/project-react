@@ -11,4 +11,18 @@ export const UserService = {
             method: EnumMethods.GET
         })
     },
+
+    async updateProfile() {
+        return instance<IFullUser>({
+            url: `${USERS}/profile`,
+            method: EnumMethods.PUT
+        }) 
+    },
+
+    async recoverPassword() {
+        return instance<IFullUser>({
+            url: `${USERS}/recover`,
+            method: EnumMethods.GET
+        })
+    },
 }

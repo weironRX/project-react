@@ -6,6 +6,7 @@ import { FC, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import cl from "./Login.module.css"
 import Loader from "@/ui/Loader/Loader";
+import { validEmail } from "../valid-email";
 
 const Login: FC = () => {
 
@@ -30,15 +31,19 @@ const Login: FC = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cl.form}>
-            <h1 className={cl.title}>Auth</h1>
+            <h1 className={cl.title}>Вход</h1>
                 {isLoading ? <Loader /> : <>
 
                     <Field 
-                        placeholder={"Логин"}
+                        placeholder={"Почта"}
                         error={errors.login?.message}
-                        type="text"
+                        type="email"
                         {...formRegister("login", {
-                            required: "Введите логин",
+                            required: "Введите почту",
+                            pattern: {
+                                value: validEmail,
+                                message: "Пожалуйста введите корректную почту"
+                            }
                         })}
                     />
 

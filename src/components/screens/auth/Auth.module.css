@@ -11,9 +11,13 @@
 }
 
 .wrapper__form {
-    background-color: #1085f9;
-    border-radius: 20px;
+    background: rgb(0,117,255);
+    background: linear-gradient(90deg, rgba(0,117,255,1) 0%, rgba(32,0,255,1) 100%);
     padding: 20px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .change__button {
@@ -28,5 +32,4 @@
     width: 200px;
     font-weight: 400;
     padding: 6px 0;
-    border-radius: 8px;
 }

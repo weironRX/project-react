@@ -20,7 +20,7 @@ const Auth: FC = () => {
     }, [])
 
     return (
-        <div title="Auth" className={cl.wrapper}>
+        <div className={cl.wrapper}>
             <div className={cl.wrapper__form}>
                 {type === "login" ? <Login /> : <Register />}
 

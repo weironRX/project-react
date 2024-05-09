@@ -8,7 +8,7 @@
 }
 
 .form {
-    background-color: #1085f9;
+    transition: all .3s;
     font-family: "Montserrat", sans-serif;
     border-radius: 20px;
 }

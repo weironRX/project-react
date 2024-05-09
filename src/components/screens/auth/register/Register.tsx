@@ -6,6 +6,7 @@ import Field from "@/ui/input/Field";
 import { FC, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import cl from "./Register.module.css"
+import { validEmail } from "../valid-email";
 
 const Register: FC = () => {
 
@@ -31,15 +32,19 @@ const Register: FC = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cl.form}>
-            <h1 className={cl.title}>Auth</h1>
+            <h1 className={cl.title}>Регистрация</h1>
                 {isLoading ? <Loader /> : <>
 
                     <Field 
-                        placeholder={"Логин"}
+                        placeholder={"Почта"}
                         error={errors.login?.message}
-                        type="text"
+                        type="email"
                         {...formRegister("login", {
-                            required: "Введите логин",
+                            required: "Введите почту",
+                            pattern: {
+                                value: validEmail,
+                                message: "Пожалуйста введите корректную почту"
+                            }
                         })}
                     />
 
@@ -54,8 +59,8 @@ const Register: FC = () => {
 
                     <Field 
                         placeholder={"Имя"}
-                        error={errors.password?.message}
-                        type="password"
+                        error={errors.name?.message}
+                        type="text"
                         {...formRegister("name", {
                             required: "Введите имя",
                         })}
