@@ -49,6 +49,7 @@
     color: white;
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
+    cursor: pointer;
 }
 
 @media (max-width: 950px) {

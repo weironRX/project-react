@@ -10,6 +10,7 @@ import { getHoursArray } from '@/utils/get-hours-array';
 import { getUserFromStorage } from '@/services/token.service';
 import Aside from './aside/Aside';
 import { useOutside } from '@/hooks/useOutside';
+import ProfileRedactor from './profile-redactor/ProfileRedactor';
 
 
 const Index: FC = () => {
@@ -18,6 +19,7 @@ const Index: FC = () => {
     const [date, setDate] = useState<string>(formattedDate(new Date()))
     const [sessions, setSessions] = useState<ISession[]>()
     const [untilSeconds, setUntilSeconds] = useState<number>(0)
+    const [isRedactProfile, setIsRedactProfile] = useState(false);
 
     const changeDate = async (e: any) => {
         setDate(e.target.value)
@@ -103,7 +105,16 @@ const Index: FC = () => {
                     </tbody>
                 </table>
             </main>
-            <div className={cl.name}>{user.name}</div>
+            <div 
+                className={cl.name}
+                onClick={() => setIsRedactProfile(isRedactProfile => !isRedactProfile)}
+            >
+                {user.name}
+            </div>
+            <ProfileRedactor 
+                isShow={isRedactProfile}
+                setIsShow={setIsRedactProfile}
+            />
         </div>
     );
 }
