@@ -8,4 +8,53 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.7);
+    padding: 0 10px;
+    color: black;
+}
+
+.redactor__body {
+    background-color: white;
+    padding: 20px;
+    max-width: 400px;
+}
+
+.password__assertion {
+    color: red;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.redactor__title {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.save_button, .cancel_button {
+    width: 50%;
+}
+
+.save_button {
+    background-color: #f5c43c;
+    color: white;
+    padding: 10px 0;
+    border: 1px solid #f5c43c;
+    transition: .5s all;
+}
+
+.save_button:hover {
+    background-color: white;
+    color: #f5c43c;
+}
+
+.redactor__input {
+    padding: 10px;
+    border-bottom: 1.5px solid black;
+    margin-bottom: 14px;
+}
+
+.redactor__error {
+    color: red;
+    margin-top: 4px;
+    font-size: 16px;
 }

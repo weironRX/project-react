@@ -1,6 +1,6 @@
 import instance from "@/api/api.interceptor"
 import { EnumMethods } from "./methods.enum"
-import { IFullUser } from "@/types/user.interface"
+import { IFullUser, IUpdateUser } from "@/types/user.interface"
 
 const USERS: string = 'users'
 
@@ -12,10 +12,11 @@ export const UserService = {
         })
     },
 
-    async updateProfile() {
+    async updateProfile(data: IUpdateUser) {
         return instance<IFullUser>({
             url: `${USERS}/profile`,
-            method: EnumMethods.PUT
+            method: EnumMethods.PUT,
+            data
         }) 
     },
 

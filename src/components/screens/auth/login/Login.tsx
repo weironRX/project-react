@@ -20,7 +20,7 @@ const Login: FC = () => {
         mode: "onChange"
     })
 
-    const onSubmit: SubmitHandler<ILogin> = (data: ILogin): void => {
+    const onSubmit = (data: ILogin): void => {
         setUnauthorizedError(false)
 
         login({data});

@@ -4,6 +4,8 @@ import { AuthService } from "@/services/auth/auth.service";
 import { removeFromStorage } from "@/services/auth/auth.helper";
 import { errorCatch } from "@/api/api.helper";
 import { ILogin } from "./user.interface";
+import { IFullUser, IUpdateUser } from "@/types/user.interface";
+import { UserService } from "@/services/user.service";
 
 export const login = createAsyncThunk<IAuthResponse, {data: ILogin}>(
     "auth/login",
@@ -16,6 +18,7 @@ export const login = createAsyncThunk<IAuthResponse, {data: ILogin}>(
         }
     }
 )
+
 
 export const register = createAsyncThunk<IAuthResponse, {data: IRegister}>(
     "auth/register",

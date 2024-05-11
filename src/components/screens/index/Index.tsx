@@ -11,6 +11,7 @@ import { getUserFromStorage } from '@/services/token.service';
 import Aside from './aside/Aside';
 import { useOutside } from '@/hooks/useOutside';
 import ProfileRedactor from './profile-redactor/ProfileRedactor';
+import { useProfile } from '@/hooks/useProfile';
 
 
 const Index: FC = () => {
@@ -35,7 +36,7 @@ const Index: FC = () => {
 
     const hours: string[] = getHoursArray();
 
-    const user = getUserFromStorage()
+    const {profile} = useProfile()
 
     useEffect(() => {
         const updateSeconds = () => {
@@ -109,7 +110,7 @@ const Index: FC = () => {
                 className={cl.name}
                 onClick={() => setIsRedactProfile(isRedactProfile => !isRedactProfile)}
             >
-                {user.name}
+                {profile?.name}
             </div>
             <ProfileRedactor 
                 isShow={isRedactProfile}
