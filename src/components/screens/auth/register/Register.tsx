@@ -3,10 +3,11 @@ import { useAuth } from "@/hooks/useAuth";
 import { IRegister } from "@/store/user/user.interface";
 import Loader from "@/ui/Loader/Loader";
 import Field from "@/ui/input/Field";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import cl from "./Register.module.css"
 import { validEmail } from "../valid-email";
+import { useQuery } from "@tanstack/react-query";
 
 const Register: FC = () => {
 
@@ -14,20 +15,27 @@ const Register: FC = () => {
 
     const {isLoading} = useAuth()
 
+    const [data, setData] = useState<IRegister>({login: "", password: "", name: ""})
+
+    const {refetch, status} = useQuery(
+        ["login", data], async () => register({data}), {
+            enabled: false,
+        }
+    )
+
     const {register: formRegister, handleSubmit, formState: {errors}, reset} = useForm<IRegister>({
         mode: "onChange"
     })
 
-    const [unauthorizedError, setUnauthorizedError] = useState<boolean>(false)
-
     const onSubmit: SubmitHandler<IRegister> = (data: IRegister): void => {
-        setUnauthorizedError(false)
-
-        register({data});
-        reset();
-
-        setUnauthorizedError(true)
+        setData(data)
     }
+
+    useEffect(() => {
+        if (data.login !== "" && data.password !== "" && data.name != "") {
+            refetch();
+        }
+    }, [data, refetch]);
 
 
     return (

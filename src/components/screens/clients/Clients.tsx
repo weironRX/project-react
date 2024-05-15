@@ -11,8 +11,15 @@ const Clients: FC = () => {
     const [aliasSearch, setAliasSearch] = useState<string>("")
     const [contactsSearch, setContactsSearch] = useState<string>("")
 
-    const {isLoading, isError, data, refetch} = useQuery(
+    const {data, refetch} = useQuery(
         ["clients", aliasSearch, contactsSearch], async () => await ClientService.getAllBySearch(aliasSearch, contactsSearch)
+    )
+
+    const {isFetching: isCreateFetching, refetch: createRefetch} = useQuery(
+        ["create-client"], async () => await ClientService.create({alias: "", contact: ""}),
+        {
+            enabled: false
+        }
     )
 
     console.log(data)
@@ -35,9 +42,11 @@ const Clients: FC = () => {
     })
 
     const createNew = async () => {
-        await ClientService.create({alias: "", contact: ""});
-        await refetch()
+        createRefetch()
+        refetch()
     }
+
+    console.log(data)
 
     return (
         <div>
@@ -71,7 +80,7 @@ const Clients: FC = () => {
                     </table>
                 </div>
             </div>
-            <button className={cl.create_new} onClick={createNew}>Создать новую</button>
+            <button className={cl.create_new} onClick={createNew}>{!isCreateFetching ? "Создать нового" : "Подождите..."}</button>
         </div>
     )
 }

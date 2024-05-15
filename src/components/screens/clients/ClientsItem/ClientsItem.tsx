@@ -14,11 +14,16 @@ const ClientsItem: FC<IClientsItem> = ({client}) => {
     const [contact, setContact] = useState<string>(client.contact)
     const [isChanging, setIsChanging] = useState(false)
 
-    console.log(client.id)
-
-    const { isLoading, isError, data } = useQuery(
-        ["change-client", isChanging], async () => ClientService.update({id: client.id, alias, contact})
+    const { isFetching, isError, data, refetch } = useQuery(
+        ["change-client"], async () => ClientService.update({id: client.id, alias, contact})
     )
+
+    const handleChange = () => {
+        setIsChanging(isChanging => !isChanging)
+        if (isChanging) {
+            refetch()
+        }
+    }
 
     return (
         <tr className={(isChanging ? cl.item_active : cl.item)}>
@@ -28,7 +33,14 @@ const ClientsItem: FC<IClientsItem> = ({client}) => {
             <th>
                 <input className={cl.input} type="text" value={contact} readOnly={!isChanging} onChange={(e) => setContact(e.target.value)}/>
             </th>
-            <button className={cl.button} onClick={() => setIsChanging(isChanging => !isChanging)}>{isChanging ? "Сохранить" : "Изменить"}</button>
+            <button 
+                className={cl.button} 
+                onClick={handleChange}
+            >
+                {isFetching 
+                ? "Загрузка..." 
+                : isChanging ? "Сохранить" : "Изменить"}
+            </button>
         </tr>
     )
 }

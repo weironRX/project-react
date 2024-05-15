@@ -1,0 +1,28 @@
+.send_button {
+    background-color: white;
+    width: 100%;
+    padding: 10px 0;
+    color: #1085f9;
+}
+
+.wrapper {
+    padding: 15px 0;
+}
+
+.title {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.error {
+    margin-top: 14px;
+    color: red;
+}
+
+.success {
+    margin-top: 14px;
+    color: green;
+    font-weight: 600;
+}

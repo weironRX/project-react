@@ -16,6 +16,15 @@ const Services: FC = () => {
         }
     );
 
+    const {isFetching: isCreateFetching, refetch: createRefetch} = useQuery(
+        ["create-service"], async () => await ServiceService.create({name: "", price: ""}),
+        {
+            enabled: false
+        }
+    )
+
+        console.log(isCreateFetching)
+
     useEffect(() => {
         const pr = localStorage.getItem("change")
 
@@ -34,10 +43,8 @@ const Services: FC = () => {
     })
 
     const createNew = async () => {
-        await ServiceService.create({name: "", price: ""});
-        await refetch()
-
-        console.log(data)
+        createRefetch()
+        refetch()
     }
 
     return (
@@ -68,7 +75,7 @@ const Services: FC = () => {
                     </table>
                 </div>
             </div>
-            <button className={cl.create_new} onClick={createNew}>Создать новую</button>
+            <button className={cl.create_new} onClick={createNew}>{!isCreateFetching ? "Создать новую" : "Подождите..."}</button>
         </div>
     )
 }

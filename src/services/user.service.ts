@@ -1,6 +1,6 @@
 import instance from "@/api/api.interceptor"
 import { EnumMethods } from "./methods.enum"
-import { IFullUser, IUpdateUser } from "@/types/user.interface"
+import { IFullUser, IRecover, IUpdateUser } from "@/types/user.interface"
 
 const USERS: string = 'users'
 
@@ -20,10 +20,11 @@ export const UserService = {
         }) 
     },
 
-    async recoverPassword() {
+    async recoverPassword(data: IRecover) {
         return instance<IFullUser>({
             url: `${USERS}/recover`,
-            method: EnumMethods.GET
+            method: EnumMethods.POST,
+            data
         })
     },
 }

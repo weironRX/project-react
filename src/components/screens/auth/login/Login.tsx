@@ -2,11 +2,12 @@ import useActions from "@/hooks/useActions";
 import { useAuth } from "@/hooks/useAuth";
 import { ILogin } from "@/store/user/user.interface";
 import Field from "@/ui/input/Field";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import cl from "./Login.module.css"
 import Loader from "@/ui/Loader/Loader";
 import { validEmail } from "../valid-email";
+import { useQuery } from "@tanstack/react-query";
 
 const Login: FC = () => {
 
@@ -14,20 +15,28 @@ const Login: FC = () => {
 
     const {isLoading} = useAuth()
 
-    const [unauthorizedError, setUnauthorizedError] = useState<boolean>(false)
+    const [data, setData] = useState<ILogin>({login: "", password: ""})
+
+    const {refetch, status} = useQuery(
+        ["login", data], async () => login({data}), {
+            enabled: false,
+        }
+    )
 
     const {register: formRegister, handleSubmit, formState: {errors}, reset} = useForm<ILogin>({
         mode: "onChange"
     })
 
     const onSubmit = (data: ILogin): void => {
-        setUnauthorizedError(false)
-
-        login({data});
-        reset();
-
-        setUnauthorizedError(true)
+        setData(data)
     }
+
+    useEffect(() => {
+        if (data.login !== "" && data.password !== "") {
+            refetch();
+        }
+    }, [data, refetch]);
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cl.form}>
@@ -56,8 +65,8 @@ const Login: FC = () => {
                         })}
                     />
 
-                    {unauthorizedError &&
-                        <div className={cl.error}>Что то пошло не так...</div>
+                    {status == "error" &&
+                        <div className={cl.error}>Неправильная почта или пароль</div>
                     }
 
                     <div className={cl.button}>

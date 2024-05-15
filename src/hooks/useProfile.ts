@@ -4,7 +4,7 @@ import { IFullUser } from "@/types/user.interface"
 
 export const useProfile = () => {
 
-    const {data: profile}: UseQueryResult<IFullUser> = useQuery(
+    const {data: profile, refetch}: UseQueryResult<IFullUser> = useQuery(
       ["get-profile"],
       async () => {
         const response = await UserService.getProfile();
@@ -12,5 +12,5 @@ export const useProfile = () => {
       },
     );
 
-    return { profile }
+    return { profile, refetch }
   };

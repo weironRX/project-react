@@ -7,3 +7,7 @@ export interface IFullUser {
 }
 
 export type IUpdateUser = Optional<IFullUser, 'password'>
+
+export interface IRecover {
+    login: string
+}

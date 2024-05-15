@@ -6,7 +6,7 @@ import { validEmail } from '@/screens/auth/valid-email'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { IUpdateUser } from '@/types/user.interface'
 import { UserService } from '@/services/user.service'
-import { isError } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 interface ProfileRedactor {
     isShow: boolean,
@@ -16,53 +16,52 @@ interface ProfileRedactor {
 
 const ProfileRedactor: FC<ProfileRedactor> = ({isShow, setIsShow}) => {
 
-    const [error, setError] = useState<string>("")
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [data, setData] = useState<IUpdateUser>({login: "", name: ""})
 
-    const handleClose = (e: any): void => {
-        setIsShow(false)
-    }
+    const {refetch, isFetching, status, error} = useQuery(
+        ["login", data], async () => UserService.updateProfile(data), {
+            enabled: false,
+        }
+    )
 
-    const { profile } = useProfile()
+    const { profile, refetch: refetchUser } = useProfile()
 
-    console.log(profile)
-
-    const {register: formRegister, handleSubmit, formState: {errors}, setValue, reset} = useForm<IUpdateUser>({
+    const {register: formRegister, handleSubmit, formState: {errors}, setValue} = useForm<IUpdateUser>({
         mode: "onChange",
     })
 
-    useEffect(() => {
-        if (!profile) return
-
-        setValue("name", profile.name)
-        setValue("login", profile.login)
-    }, [profile]);
+    console.log(profile)
 
     const onSubmit: SubmitHandler<IUpdateUser> = async (data: IUpdateUser) => {
-        console.log("Here")
-        try {
-            setError("")
-            setIsLoading(true)
-            await UserService.updateProfile(data)
-        } catch(e: any) {
-            setError(e.response.data.message)
-        } finally {
-            setIsLoading(false)
-        }
+        setData(data)
+        refetchUser()
     }
+
+    useEffect(() => {
+        if (data.login !== "" && data.name !== "") {
+            refetch();
+        }
+    }, [data, refetch]);
 
     const handleReset = (): void => {
         if (!profile) return
 
+        setData(prevData => ({...prevData, name: profile.name, login: profile.login}))
         setValue("name", profile.name)
         setValue("login", profile.login)
+        setValue("password", "")
     }
+
+    useEffect(() => {
+        console.log("Here")
+        handleReset()
+    }, [profile])
 
     return (
         <>
             {isShow &&
                 <div 
-                    onClick={handleClose}
+                    onClick={() => setIsShow(false)}
                     className={cl.redactor__wrapper}
                 >
                     <form 
@@ -108,11 +107,11 @@ const ProfileRedactor: FC<ProfileRedactor> = ({isShow, setIsShow}) => {
                             {...formRegister("password", {})}
                         />
 
-                        <button className={cl.save_button} type='submit'>{isLoading ? "Загрузка..." : "Сохранить"}</button>
+                        <button className={cl.save_button} type='submit'>{isFetching ? "Загрузка..." : "Сохранить"}</button>
 
                         <button className={cl.cancel_button}  type="button" onClick={handleReset}>Отмена</button>
 
-                        {error ? <p className={cl.redactor__error}>{error}</p> : ""}
+                        {status == "error" ? <p className={cl.redactor__error}>Пользователь с такой почтой уже существует</p> : ""}
                     </form>
                 </div>
             }
