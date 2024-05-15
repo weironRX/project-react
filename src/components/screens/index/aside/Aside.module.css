@@ -5,9 +5,14 @@
     font-family: "Montserrat", sans-serif;
 }
 
-.aside {
-    background-color: #f1f4f1;
+.aside, .aside_active {
+    background: rgb(0,117,255);
+    background: linear-gradient(90deg, rgba(0,117,255,1) 0%, rgba(32,0,255,1) 100%);
     transition: .5s all;
+    padding: 10px;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size: 20px;
 }
 
 @media (max-width: 950px) {
@@ -21,8 +26,16 @@
     }
 }
 
+.aside__link {
+    padding: 4px 0;
+    transition: .3s all;
+}
+
+.aside__link:hover {
+    color: #f5c43c;
+}
+
 .aside_active {
-    background-color: #f1f4f1;
     position: absolute;
     top: 0;
     left: 0;
@@ -34,25 +47,26 @@
 }
 
 .aside__date {
-    background-color: #1085f9;
-    color: white;
     display: flex;
-    padding: 10px 0;
-    font-family: "Montserrat", sans-serif;
 }
 
 .aside__input {
-    width: 20px;
+    width: 24px;
     margin-right: 10px;
+    height: 24px;
 }
 
-.aside__link {
-    background-color: #1085f9;
-    color: white;
-    padding: 5px;
-    border-bottom: 1px solid white;
-    font-family: "Montserrat", sans-serif;
-    font-size: 16px;
+.start_change {
+    text-align: left;
+    transition: .3s all;
+}
+
+.start_change:hover {
+    color: #f5c43c;
+}
+
+.aside__change_body {
+    margin-top: 20px;
 }
 
 .aside__nav {
@@ -62,36 +76,27 @@
 }
 
 .aside__change {
+    color: white;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
 }
 
 .aside__change_button {
-    font-size: 16px;
     text-align: left;
-    background-color: #1085f9;
     color: white;
-    padding: 5px;
-    border-bottom: 1px solid white;
-    font-family: "Montserrat", sans-serif;
     font-weight: 400;
+    margin-left: -10px;
+    padding: 5px 0 5px 10px;
 }
 
 .aside__remain {
-    font-family: "Montserrat", sans-serif;
     font-weight: 400;
     margin-top: 40px;
-    background-color: #1085f9;
-    padding: 10px;
-    color: white;
 }
 
 .exit {
     margin-top: 40px;
-    background-color: #1085f9;
-    padding: 10px;
-    color: white;
 }
 
 .exit button {

@@ -21,7 +21,6 @@ export const saveTokensStorage = (data: ITokens): void => {
 }
 
 export const removeFromStorage = (): void => {
-    console.log("worked")
     Cookies.remove('refreshToken')
     Cookies.remove('accessToken')
     localStorage.removeItem('user')

@@ -39,7 +39,6 @@ export const AuthService = {
 
 
     async register(data: IRegister) {
-        console.log(data)
 
         const response = await instance<IAuthResponse>({
             url: `/auth/register`,

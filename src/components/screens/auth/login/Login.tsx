@@ -13,11 +13,11 @@ const Login: FC = () => {
 
     const {login} = useActions()
 
-    const {isLoading} = useAuth()
+    const {isLoading, isError} = useAuth()
 
     const [data, setData] = useState<ILogin>({login: "", password: ""})
 
-    const {refetch, status} = useQuery(
+    const {refetch, status, error} = useQuery(
         ["login", data], async () => login({data}), {
             enabled: false,
         }
@@ -36,7 +36,6 @@ const Login: FC = () => {
             refetch();
         }
     }, [data, refetch]);
-
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cl.form}>
@@ -65,7 +64,7 @@ const Login: FC = () => {
                         })}
                     />
 
-                    {status == "error" &&
+                    {isError &&
                         <div className={cl.error}>Неправильная почта или пароль</div>
                     }
 

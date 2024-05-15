@@ -13,7 +13,7 @@ const Register: FC = () => {
 
     const {register} = useActions()
 
-    const {isLoading} = useAuth()
+    const {isLoading, isError} = useAuth()
 
     const [data, setData] = useState<IRegister>({login: "", password: "", name: ""})
 
@@ -73,6 +73,10 @@ const Register: FC = () => {
                             required: "Введите имя",
                         })}
                     />
+
+                    {isError &&
+                        <div className={cl.error}>Пользователь с такой почтой уже существует</div>
+                    }
 
                     <div className={cl.button}>
                         <button type="submit">Зарегистрироваться</button>

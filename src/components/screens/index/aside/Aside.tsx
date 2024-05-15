@@ -68,7 +68,7 @@ const Aside: FC<IAside> = ({date, changeDate, remain, setIsOpen, isOpen, refAsid
 
 
     const { isLoading, error, data } = useQuery(
-        ['change-all', date, isChange, seconds], async () => ChangesService.getAll()
+        ['change-all', date, isChange], async () => ChangesService.getAll()
     );
 
     useEffect(() => {
@@ -100,18 +100,10 @@ const Aside: FC<IAside> = ({date, changeDate, remain, setIsOpen, isOpen, refAsid
 
             <div className={cl.aside__change}>
                 <button 
-                    style={isChange ? {pointerEvents: "none", backgroundColor: "blue"} : {}} 
-                    className={cl.aside__change_button}
-                    onClick={() => startChange(0)}
-                    >
-                        Начать смену
-                    </button>
-                <button 
-                    style={!isChange ? {pointerEvents: "none", backgroundColor: "blue"} : {}} 
-                    className={cl.aside__change_button}
-                    onClick={endChange}
+                    onClick={() => (isChange ? endChange() : startChange(0))}
+                    className={cl.start_change}
                 >
-                    Завершить смену
+                    {isChange ? "Завершить смену" : "Начать смену"}
                 </button>
                 <div className={cl.aside__change_body}>
                     <div>Время смены:</div>
@@ -120,8 +112,7 @@ const Aside: FC<IAside> = ({date, changeDate, remain, setIsOpen, isOpen, refAsid
                     {(new Date((montly || 0) * 1000).toISOString().slice(11, 19))}
                 </div>
                 <div className={cl.aside__remain}>
-                    <div>Осталось:</div>
-                    {(new Date(remain * 1000).toISOString().slice(11, 19))}
+                    <div>Осталось: {(new Date(remain * 1000).toISOString().slice(11, 19))}</div>
                 </div>
             </div>
 
