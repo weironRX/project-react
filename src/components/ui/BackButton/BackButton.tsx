@@ -4,7 +4,7 @@ import cl from "./BackButton.module.css"
 const BackButton: FC = () => {
     return (
         <>
-            <a className={cl.button} href="/">
+            <a className={cl.button} href="./">
                 Назад
             </a>
         </>
