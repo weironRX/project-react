@@ -5,7 +5,6 @@ const nextConfig = {
         SERVER_URL: process.env.SERVER_URL,
         APP_URL: process.env.APP_URL
     },
-    output: "export",
     distDir: "dist",
 }
 
